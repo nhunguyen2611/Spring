@@ -52,6 +52,7 @@ public class EmployeeController {
 	public String showEmployeePage(HttpServletRequest request, 
 			@PathVariable int pageNumber, Model model) {
 		PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("employeelist");
+		//Moi trang sẽ có 5 phan tu
 		int pagesize = 5;
 		List<Employee> list =(List<Employee>) employeeService.getAllEmp();
 		System.out.println(list.size());
