@@ -1,1 +1,8 @@
 
+https://shareeverythings.com/lap-trinh/java/huong-dan-phan-trang-trong-thymeleaf-va-spring-boot/
+
+- Cơ bản sẽ giống 1-CRUD Simple chỉ khác ở chổ có thêm thanh phân trang và chức năng phân trang
+- Chức năng tìm kiếm chưa được phân trang nên bị lỗi
+- Chinh sửa 2 file đó là file controler và view list
+
+
