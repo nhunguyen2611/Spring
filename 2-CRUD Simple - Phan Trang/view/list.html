@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<!-- Lap lai code head th:replace="layout :: head" -->
+	<head  th:replace="layout :: head">
+	</head>
+	
+	<body>
+		<nav th:replace="layout :: header"></nav>
+		
+		<div  class="container" style="margin-top:30px" >
+			<!-- Hien thi thanh cong -->
+			
+			 <div th:if="${success}"
+				class="row alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+				</button>
+				<span th:text="${success}"></span>
+			</div>
+			<div class="row" style="margin-top:30px">
+				<div class="col-lg-6" >
+			<!-- Add them phan tu -->		
+					<a th:href="@{/employee/create}" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-plus"></span> Add new employee
+			</a>
+					
+					
+				</div>
+				
+				<!-- Luu y thuoc tinh "name = 's'" -->
+				<div class="col-lg-6" >
+					<form class="form-inline" action="#" th:action="@{/employee/search}"  menthod = "GET">    
+						<input type="text" class="form-control" name="s"  placeholder="Type employee name..." >						
+						<button type="submit " class="btn btn-primary">Search</button>
+					  </form>
+				</div>		
+			</div>
+			<th:block th:if="${#lists.isEmpty(employees)}">
+				<h3>No employee</h3>
+			</th:block>
+			
+			<!--  In tat ca cac phan tu cua bang Employee -->
+			<th:block th:unless="${#lists.isEmpty(employees)}">
+				<div style="margin-top:30px">
+					<table class="table table-bordered table-sm">
+						<thead>
+						  <tr>
+							<th>No</th>
+							<th>Name</th>
+							<th>Phone</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						  </tr>
+						</thead>
+						<tbody>
+						
+						<!-- Add ${employees.pageList}  -->
+						  <tr>
+							<tr th:each="contact,iterStat : ${employees.pageList}">
+							<td th:text="${iterStat.count}"></td>
+							<td th:text="${contact.name}"></td>
+							<td th:text="${contact.phone}"></td>
+							<td><a th:href="@{/employee/{id}/edit(id=${contact.id})}">EDIT</td>
+							<td><a th:href="@{/employee/{id}/delete(id=${contact.id})}">DELETE</a></td>
+						  </tr>
+						 
+						</tbody>
+					  </table>
+				</div>
+			</th:block>
+			
+			
+			
+			
+			<ul class="pagination">
+				<li
+					th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
+					<a class="page-link" th:href="@{/employee}">First</a>
+				</li>
+				<li
+					th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">
+					<a class="page-link" aria-label="Previous"
+					th:href="@{|${baseUrl}${currentIndex - 1}|}"
+					title='Go to previous page'><span aria-hidden="true">«</span>
+						<span class="sr-only">Previous</span></a>
+				</li>
+				<li th:each="item : ${#numbers.sequence(beginIndex,endIndex)}"
+					th:class="${item == currentIndex ? 'page-item active' :'page-item' }">
+					<a class="page-link" th:href="@{|${baseUrl}${item}|}"> <span
+						th:text='${item}'>1</span>
+				</a>
+				</li>
+				<li
+					th:class="${currentIndex == totalPageCount}? 'page-item disabled': 'page-item'">
+					<a class="page-link" aria-label="Next"
+					th:href="@{|${baseUrl}${currentIndex + 1}|}" title='Go to next page'><span
+						aria-hidden="true">»</span> <span class="sr-only">Next</span></a>
+				</li>
+				<li
+					th:class="${currentIndex == totalPageCount}? 'page-item disabled':'page-item'">
+					<a class="page-link" th:href="@{|${baseUrl}${totalPageCount}|}">Last</a>
+				</li>
+			</ul>
+				
+			 
+			
+		
+		</div>
+		
+		<footer th:replace="layout :: footer"></footer>
+	
+	</body>
+</html>
+
